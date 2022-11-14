@@ -242,7 +242,7 @@
   (-pr-writer [coll writer opts]
     (pr-sequential-writer writer pr-writer "(" " " ")" opts coll)))
 
-(deftype ^:private Bean [meta obj prop->key key->prop transform ^boolean recursive?
+(deftype Bean [meta obj prop->key key->prop transform ^boolean recursive?
                          ^:mutable __arr ^:mutable __cnt ^:mutable __hash]
   Object
   (toString [coll]
@@ -568,7 +568,7 @@
   (-pr-writer [coll writer opts]
     (pr-sequential-writer writer pr-writer "(" " " ")" opts coll)))
 
-(deftype ^:private ArrayVector [meta prop->key key->prop transform arr ^:mutable __hash]
+(deftype ArrayVector [meta prop->key key->prop transform arr ^:mutable __hash]
   Object
   (toString [coll]
     (pr-str* coll))
