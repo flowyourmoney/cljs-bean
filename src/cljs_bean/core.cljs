@@ -24,9 +24,9 @@
     transformed
     (cond
       (primitive? x) x
-      (object? x)    (Bean. nil x prop->key key->prop transform true nil nil nil)
-      (array? x)     (ArrayVector. nil prop->key key->prop transform x nil)
-      :else          x)))
+      (object? x) (Bean. nil x prop->key key->prop transform true nil nil nil)
+      (array? x) (ArrayVector. nil prop->key key->prop transform x nil)
+      :else x)))
 
 (defn- unwrap [x]
   (cond
@@ -308,7 +308,7 @@
     (if (snapshot? k v prop->key recursive?)
       (-assoc (with-meta (snapshot obj prop->key key->prop transform recursive?) meta) k v)
       (Bean. meta
-             (doto (gobj/clone obj) (unchecked-set (key->prop k) (cond-> v recursive? unwrap)))
+        (doto (gobj/clone obj) (unchecked-set (key->prop k) (cond-> v recursive? unwrap)))
         prop->key key->prop transform recursive? nil nil nil)))
 
   (-contains-key? [coll k]
@@ -429,8 +429,8 @@
           (== n (alength arr)) (-conj! tcoll val)
           :else
           (throw
-           (js/Error.
-            (str "Index " n " out of bounds for TransientArrayVector of length" (alength arr))))))
+            (js/Error.
+              (str "Index " n " out of bounds for TransientArrayVector of length" (alength arr))))))
       (throw (js/Error. "assoc! after persistent!"))))
 
   (-pop! [tcoll]
@@ -601,12 +601,12 @@
       (-nth coll (dec (alength arr)))))
   (-pop [coll]
     (cond
-      (zero? (alength arr)) (throw (js/Error. "Can't pop empty vector"))
-      (== 1 (alength arr))  (-empty coll)
-      :else
-      (let [new-arr (aclone arr)]
-        (ArrayVector. meta prop->key key->prop transform
-                      (.slice new-arr 0 (dec (alength new-arr))) nil))))
+        (zero? (alength arr)) (throw (js/Error. "Can't pop empty vector"))
+        (== 1 (alength arr))  (-empty coll)
+        :else
+        (let [new-arr (aclone arr)]
+          (ArrayVector. meta prop->key key->prop transform
+            (.slice new-arr 0 (dec (alength new-arr))) nil))))
 
   ICollection
   (-conj [_ o]
@@ -674,7 +674,7 @@
           (aset new-arr n (unwrap val))
           (ArrayVector. meta prop->key key->prop transform new-arr nil)))
       (== n (alength arr)) (-conj coll val)
-      :else                (throw (js/Error. (str "Index " n " out of bounds  [0," (alength arr) "]")))))
+      :else (throw (js/Error. (str "Index " n " out of bounds  [0," (alength arr) "]")))))
 
 
   IReduce
