@@ -602,7 +602,7 @@
   (-pop [coll]
     (cond
         (zero? (alength arr)) (throw (js/Error. "Can't pop empty vector"))
-        (== 1 (alength arr))  (-empty coll)
+        (== 1 (alength arr)) (-empty coll)
         :else
         (let [new-arr (aclone arr)]
           (ArrayVector. meta prop->key key->prop transform
