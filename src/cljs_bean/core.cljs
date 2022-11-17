@@ -12,7 +12,7 @@
 
 (def ^:private lookup-sentinel #js {})
 
-(defn- primitive? [x]
+(defn primitive? [x]
   (or (number? x)
       (string? x)
       (boolean? x)
